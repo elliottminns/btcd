@@ -1254,6 +1254,12 @@ func (b *BlockChain) BestSnapshot() *BestState {
 	return snapshot
 }
 
+func (b *BlockChain) SetBestSnapshot(s *BestState) {
+	b.stateLock.Lock()
+	defer b.stateLock.Unlock()
+	b.stateSnapshot = s
+}
+
 // HeaderByHash returns the block header identified by the given hash or an
 // error if it doesn't exist. Note that this will return headers from both the
 // main and side chains.
