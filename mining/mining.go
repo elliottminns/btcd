@@ -362,7 +362,7 @@ type BlkTmplGenerator struct {
 // templates are built on top of the current best chain and adhere to the
 // consensus rules.
 func NewBlkTmplGenerator(policy *Policy, params *chaincfg.Params,
-	txSource TxSource, chain *blockchain.BlockChain,
+	txSource TxSource, chain blockchain.BlockChainInterface,
 	timeSource blockchain.MedianTimeSource,
 	sigCache *txscript.SigCache,
 	hashCache *txscript.HashCache) *BlkTmplGenerator {
