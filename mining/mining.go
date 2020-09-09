@@ -349,7 +349,7 @@ type BlkTmplGenerator struct {
 	policy      *Policy
 	chainParams *chaincfg.Params
 	txSource    TxSource
-	chain       *blockchain.BlockChain
+	chain       blockchain.BlockChainInterface
 	timeSource  blockchain.MedianTimeSource
 	sigCache    *txscript.SigCache
 	hashCache   *txscript.HashCache

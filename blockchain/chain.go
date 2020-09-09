@@ -85,6 +85,15 @@ func newBestState(node *blockNode, blockSize, blockWeight, numTxns,
 	}
 }
 
+type BlockChainInterface interface {
+	BestSnapshot() *BestState
+	FetchUtxoView(tx *btcutil.Tx) (*UtxoViewpoint, error)
+	ThresholdState(deploymentID uint32) (ThresholdState, error)
+	CalcNextRequiredDifficulty(timestamp time.Time) (uint32, error)
+	CalcNextBlockVersion() (int32, error)
+	CheckConnectBlockTemplate(block *btcutil.Block) error
+}
+
 // BlockChain provides functions for working with the bitcoin block chain.
 // It includes functionality such as rejecting duplicate blocks, ensuring blocks
 // follow all rules, orphan handling, checkpoint handling, and best chain
@@ -1252,12 +1261,6 @@ func (b *BlockChain) BestSnapshot() *BestState {
 	snapshot := b.stateSnapshot
 	b.stateLock.RUnlock()
 	return snapshot
-}
-
-func (b *BlockChain) SetBestSnapshot(s *BestState) {
-	b.stateLock.Lock()
-	defer b.stateLock.Unlock()
-	b.stateSnapshot = s
 }
 
 // HeaderByHash returns the block header identified by the given hash or an
