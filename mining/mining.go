@@ -244,6 +244,17 @@ func standardCoinbaseScript(nextBlockHeight int32, extraNonce uint64) ([]byte, e
 		Script()
 }
 
+func CreateCoinbaseTx(params *chaincfg.Params, nextBlockHeight int32, addr btcutil.Address) (*btcutil.Tx, error) {
+	extraNonce := uint64(0xfafafafa)
+	coinbaseScript, err := standardCoinbaseScript(nextBlockHeight, extraNonce)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return createCoinbaseTx(params, coinbaseScript, nextBlockHeight, addr)
+}
+
 // createCoinbaseTx returns a coinbase transaction paying an appropriate subsidy
 // based on the passed block height to the provided address.  When the address
 // is nil, the coinbase transaction will instead be redeemable by anyone.
