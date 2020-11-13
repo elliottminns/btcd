@@ -244,8 +244,7 @@ func standardCoinbaseScript(nextBlockHeight int32, extraNonce uint64) ([]byte, e
 		Script()
 }
 
-func CreateCoinbaseTx(params *chaincfg.Params, nextBlockHeight int32, addr btcutil.Address) (*btcutil.Tx, error) {
-	extraNonce := uint64(0xfafafafa)
+func CreateCoinbaseTx(params *chaincfg.Params, nextBlockHeight int32, addr btcutil.Address, extraNonce uint64) (*btcutil.Tx, error) {
 	coinbaseScript, err := standardCoinbaseScript(nextBlockHeight, extraNonce)
 
 	if err != nil {
